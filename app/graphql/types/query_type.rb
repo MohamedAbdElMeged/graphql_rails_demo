@@ -8,16 +8,22 @@ module Types
     # They will be entry points for queries on your schema.
 
     # TODO: remove me
-    field :user, Types::UserType, null: false do 
+    field :user, Types::UserType, null: false do
       argument :id, ID, required: true
     end
     def user(id:)
       User.find(id)
     end
+    field :order_data, Types::OrderDataType, null: false do
+      argument :id, ID, required: true
+    end
+    def order_data(id:)
+      JSON.parse!(User.find(id).order_data)
+    end
 
     field :users, [Types::UserType], null: false
     def users
-      User.all
+      User.all.includes(:posts)
     end
   end
 end

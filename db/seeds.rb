@@ -5,9 +5,14 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
-
+Post.delete_all
+User.delete_all
 5.times do
-  user = User.create(name: Faker::Name.name, email: Faker::Internet.email)
+  json_ob = {
+    id: 'svd',
+    title: 'vsasds'
+  }.to_json
+  user = User.create(name: Faker::Name.name, email: Faker::Internet.email, order_data: json_ob)
   5.times do
     post = user.posts.create(title: Faker::Lorem.sentence(word_count: 3),
                              body: Faker::Lorem.paragraph(sentence_count: 5))
